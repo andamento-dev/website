@@ -1,0 +1,147 @@
+{{- $spectral := resources.Get "fonts/spectral-500.woff2" | fingerprint }}
+/* Spectral, by Production Type — SIL Open Font License 1.1 (see assets/fonts/OFL.txt).
+   Self-hosted: no request leaves the page for a third-party font host. */
+@font-face {
+  font-family: "Spectral";
+  src: url("{{ $spectral.RelPermalink }}") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Palette sampled from the Andamento logo. */
+:root {
+  --green-deep: #003B28;
+  --green-mid: #2A6A52;
+  --green-light: #468868;
+  --bg: #ffffff;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Spectral", Georgia, "Times New Roman", serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.25rem;
+  background-color: var(--bg);
+  /* Faint halo picked up from the logo's mid green. */
+  background-image: radial-gradient(
+    80% 65% at 50% 45%,
+    rgba(42, 106, 82, 0.055) 0%,
+    rgba(42, 106, 82, 0) 100%
+  );
+  font-family: var(--font-sans);
+  color: var(--green-deep);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Keep the stack inside the viewport so a long wordmark can never
+     push the whole layout off-centre on narrow screens. */
+  width: 100%;
+  max-width: 32rem;
+  text-align: center;
+}
+
+.logo {
+  display: block;
+  line-height: 0;
+}
+
+.logo img {
+  /* The asset is cropped to the artwork, so this is the true drawn width. */
+  width: clamp(6.5rem, 25vw, 10rem);
+  height: auto;
+}
+
+.wordmark {
+  margin: 0;
+  /* Scale the gaps with the type so they don't feel roomy on a phone. */
+  margin-top: clamp(1.1rem, 4vw, 1.6rem);
+  max-width: 100%;
+  font-family: var(--font-serif);
+  /* Spectral sits optically smaller than a sans at the same size, so it runs a shade larger. */
+  font-size: clamp(1.9rem, 8.6vw, 3.5rem);
+  /* Trim the default leading so the margins above and below are the real gaps. */
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  /* Compensate for the trailing letter-space so the word stays optically centred. */
+  text-indent: 0.05em;
+  color: var(--green-deep);
+}
+
+/* Tighten the tracking before the word gets close to the screen edge. */
+@media (max-width: 26rem) {
+  .wordmark {
+    letter-spacing: 0.035em;
+    text-indent: 0.035em;
+  }
+}
+
+.github {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: clamp(0.9rem, 3.4vw, 1.35rem);
+  color: var(--green-mid);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: color 0.18s ease;
+}
+
+.github__label {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.3em;
+  text-decoration-color: transparent;
+  transition: text-decoration-color 0.18s ease;
+}
+
+.github:hover,
+.github:focus-visible {
+  color: var(--green-deep);
+}
+
+.github:hover .github__label,
+.github:focus-visible .github__label {
+  text-decoration-color: currentColor;
+}
+
+.github:focus-visible {
+  outline: 2px solid var(--green-light);
+  outline-offset: 4px;
+}
+
+.github__icon {
+  flex: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .github,
+  .github__label {
+    transition: none;
+  }
+}

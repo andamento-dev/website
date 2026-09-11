@@ -1,0 +1,23 @@
+baseURL = "https://andamento.dev/"
+locale = "en-GB"
+defaultContentLanguage = "en"
+title = "Andamento"
+enableRobotsTXT = true
+
+# The site is a single page; no taxonomies or RSS needed.
+disableKinds = ["taxonomy", "term", "rss"]
+
+[params]
+  description = "Andamento — an open source project. Work in progress."
+  github = "https://github.com/andamento-dev"
+  # Colours sampled directly from the logo.
+  [params.colors]
+    deep  = "#003B28"
+    mid   = "#2A6A52"
+    light = "#468868"
+
+[minify]
+  disableXML = true
+
+[build]
+  writeStats = false
